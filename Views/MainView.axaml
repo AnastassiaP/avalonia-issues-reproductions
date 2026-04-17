@@ -1,0 +1,193 @@
+<DrawerPage xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:avalonia_issues_reproductions.ViewModels"
+            xmlns:models="using:avalonia_issues_reproductions.Models"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            x:Class="avalonia_issues_reproductions.Views.MainView"
+            x:DataType="vm:MainWindowViewModel"
+            DrawerLayoutBehavior="Split"
+            DrawerLength="260"
+            Drawer="{Binding}"
+            DrawerHeader="{Binding}">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <!-- Drawer header -->
+    <DrawerPage.DrawerHeaderTemplate>
+        <DataTemplate x:DataType="vm:MainWindowViewModel">
+            <DockPanel LastChildFill="False" Margin="16,16,16,8">
+                <TextBox DockPanel.Dock="Top"
+                         Text="{Binding SearchText}"
+                         PlaceholderText="Search repros…"/>
+            </DockPanel>
+        </DataTemplate>
+    </DrawerPage.DrawerHeaderTemplate>
+
+    <!-- Drawer body -->
+    <DrawerPage.DrawerTemplate>
+        <DataTemplate x:DataType="vm:MainWindowViewModel">
+            <DockPanel LastChildFill="True">
+
+                <!-- Tag filters -->
+                <Border DockPanel.Dock="Top" Padding="12,0,12,6">
+                    <StackPanel Spacing="12">
+
+                        <!-- Clear button -->
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left"
+                                       Text="FILTERS"
+                                       FontSize="10"
+                                       FontWeight="SemiBold"
+                                       Opacity="0.5"
+                                       VerticalAlignment="Center"
+                                       LetterSpacing="1"/>
+                            <Button DockPanel.Dock="Right"
+                                    Content="Clear"
+                                    Command="{Binding ClearTagsCommand}"
+                                    Padding="8,2"
+                                    FontSize="11"/>
+                        </DockPanel>
+
+                        <!-- Operating System -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="OPERATING SYSTEM"
+                                       FontSize="9"
+                                       FontWeight="SemiBold"
+                                       Opacity="0.4"
+                                       LetterSpacing="0.8"/>
+                            <ItemsControl ItemsSource="{Binding PlatformFilters}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:TagFilter">
+                                        <ToggleButton Content="{Binding Name}"
+                                                      IsChecked="{Binding IsSelected}"
+                                                      Margin="0,0,4,4"
+                                                      Padding="10,4"
+                                                      CornerRadius="12"
+                                                      FontSize="12"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <!-- Issue Status -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="ISSUE STATUS"
+                                       FontSize="9"
+                                       FontWeight="SemiBold"
+                                       Opacity="0.4"
+                                       LetterSpacing="0.8"/>
+                            <ItemsControl ItemsSource="{Binding StatusFilters}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:TagFilter">
+                                        <ToggleButton Content="{Binding Name}"
+                                                      IsChecked="{Binding IsSelected}"
+                                                      Margin="0,0,4,4"
+                                                      Padding="10,4"
+                                                      CornerRadius="12"
+                                                      FontSize="12"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- Divider -->
+                <Border DockPanel.Dock="Top"
+                        Height="1"
+                        Margin="12,2,12,0"
+                        Background="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+
+                <!-- Result count -->
+                <TextBlock DockPanel.Dock="Top"
+                           Margin="16,7,16,3"
+                           FontSize="11"
+                           Opacity="0.45"
+                           Text="{Binding FilteredReprosCount, StringFormat='{}{0} result(s)'}"/>
+
+                <!-- Repros list -->
+                <ListBox ItemsSource="{Binding FilteredRepros}"
+                         SelectedItem="{Binding SelectedReproInfo}"
+                         Margin="4,0,4,4"
+                         Padding="4">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:ReproInfo">
+                            <StackPanel Spacing="5" Margin="2,6">
+
+                                <TextBlock Text="{Binding Title}"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"/>
+
+                                <TextBlock Text="{Binding Description}"
+                                           Opacity="0.55"
+                                           FontSize="11"
+                                           TextWrapping="Wrap"/>
+
+                                <!-- Platform + status badges -->
+                                <WrapPanel Orientation="Horizontal" Margin="0,4,0,0">
+
+                                    <!-- Platform badges -->
+                                    <ItemsControl ItemsSource="{Binding PlatformNames}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="x:String">
+                                                <Border Background="{DynamicResource SystemAccentColor}"
+                                                        CornerRadius="4"
+                                                        Padding="5,1"
+                                                        Margin="0,0,4,2"
+                                                        Opacity="0.75">
+                                                    <TextBlock Text="{Binding}"
+                                                               Foreground="White"
+                                                               FontSize="9"
+                                                               FontWeight="SemiBold"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!-- Status badge -->
+                                    <Border CornerRadius="4"
+                                            Padding="5,1"
+                                            Margin="0,0,4,2"
+                                            Opacity="0.75"
+                                            Background="Gray">
+                                        <TextBlock Text="{Binding StatusName}"
+                                                   Foreground="White"
+                                                   FontSize="9"
+                                                   FontWeight="SemiBold"/>
+                                    </Border>
+
+                                </WrapPanel>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </DockPanel>
+        </DataTemplate>
+    </DrawerPage.DrawerTemplate>
+
+    <!-- Main content area-->
+    <NavigationPage Name="NavPage"/>
+
+</DrawerPage>

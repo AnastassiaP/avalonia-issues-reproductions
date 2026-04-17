@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:avalonia_issues_reproductions.ViewModels.Repros"
+             x:Class="avalonia_issues_reproductions.Views.Repros.SliderReproView"
+             x:DataType="vm:SliderReproViewModel">
+
+    <StackPanel Spacing="16">
+
+        <Slider Value="{Binding HorizontalValue}"
+                Minimum="0" Maximum="100"
+                MaxWidth="400"
+                HorizontalAlignment="Left"/>
+        
+    </StackPanel>
+</UserControl>

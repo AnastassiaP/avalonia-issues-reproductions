@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:avalonia_issues_reproductions.ViewModels.Repros"
+             x:Class="avalonia_issues_reproductions.Views.Repros.TextBoxReproView"
+             x:DataType="vm:TextBoxReproViewModel">
+
+    <StackPanel Spacing="16">
+
+        <TextBox Text="Hello!"
+                 IsReadOnly="True"
+                 MaxWidth="400"
+                 HorizontalAlignment="Left"/>
+
+    </StackPanel>
+</UserControl>
