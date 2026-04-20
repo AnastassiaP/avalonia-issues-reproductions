@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:avalonia_issues_reproductions.ViewModels.Repros"
+             x:Class="avalonia_issues_reproductions.Views.Repros.MinHeightResizeReproView"
+             x:DataType="vm:MinHeightResizeReproViewModel">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+        <TextBlock TextWrapping="Wrap" MaxWidth="320" TextAlignment="Center">
+            Repro for issue #3117: resizing a window with MinHeight set causes it to move upward on macOS.
+            Open the window below, then try dragging its top edge upward past MinHeight.
+        </TextBlock>
+        <Button HorizontalAlignment="Center" Click="OpenReproWindow">Open repro window</Button>
+    </StackPanel>
+</UserControl>

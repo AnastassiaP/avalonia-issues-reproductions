@@ -38,6 +38,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasCurrentRepro))]
+    
     private ViewModelBase? _currentRepro;
 
     public bool HasCurrentRepro => CurrentRepro is not null;
@@ -51,13 +52,20 @@ public partial class MainWindowViewModel : ViewModelBase
 
     partial void OnSelectedReproInfoChanged(ReproInfo? value)
     {
-        CurrentRepro = value?.ViewModelFactory();
+        if (value is null)
+        {
+            CurrentRepro = null; 
+            return;
+        }
 
-        if (Navigator == null || CurrentRepro == null) return;
+        var reproVm = value.ViewModelFactory();
+        CurrentRepro = new ReproPageViewModel(value, reproVm);
+
+        if (Navigator == null) return;
 
         _ = Navigator.ReplaceAsync(new ContentPage
         {
-            Header = value?.Title,
+            Header = value.Title,
             Content = new ContentControl { Content = CurrentRepro }
         });
     }

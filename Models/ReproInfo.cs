@@ -11,7 +11,8 @@ public record ReproInfo(
     string Description,
     Platform[] Platforms,
     IssueStatus Status,
-    Func<ViewModelBase> ViewModelFactory
+    Func<ViewModelBase> ViewModelFactory,
+    string? IssueUrl = null
 )
 {
     public IEnumerable<string> PlatformNames => Platforms.Select(p => p.ToString());

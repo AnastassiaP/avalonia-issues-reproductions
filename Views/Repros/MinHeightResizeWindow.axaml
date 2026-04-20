@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="avalonia_issues_reproductions.Views.Repros.MinHeightResizeWindow"
+        Title="MinHeight Resize Repro"
+        WindowStartupLocation="CenterOwner"
+        Width="320"
+        Height="480"
+        MinWidth="320"
+        MinHeight="320"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center">
+
+    <DockPanel>
+        <TextBlock
+            DockPanel.Dock="Top"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="24"
+            Margin="16, 16, 16, 0"
+            Text="Buddy name"/>
+        <Button
+            DockPanel.Dock="Bottom"
+            Height="64"
+            FontSize="20"
+            Margin="16"
+            >Stalk buddy</Button>
+        <TextBlock
+            DockPanel.Dock="Bottom"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="16, 0"
+            FontSize="16"
+            Text="New buddy in X seconds"/>
+        <Border
+            Background="LightGray"
+            BorderBrush="Black"
+            BorderThickness="1"
+            Margin="16"
+            CornerRadius="8"
+            Width="128"
+            Height="128"/>
+    </DockPanel>
+</Window>

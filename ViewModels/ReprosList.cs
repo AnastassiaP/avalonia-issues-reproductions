@@ -25,5 +25,12 @@ public partial class ReprosList
             [Platform.Android],
             IssueStatus.Reproducible,
             () => new SliderReproViewModel()),
+
+        new("MinHeight Resize",
+            "Resizing a window with MinHeight set causes it to move upward on macOS (#3117)",
+            [Platform.MacOS],
+            IssueStatus.Fixed,
+            () => new MinHeightResizeReproViewModel(),
+            IssueUrl: "https://github.com/AvaloniaUI/Avalonia/issues/3117"),
     ];
 }

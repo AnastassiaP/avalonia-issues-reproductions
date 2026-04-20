@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:avalonia_issues_reproductions.ViewModels"
+             x:Class="avalonia_issues_reproductions.Views.ReproPageView"
+             x:DataType="vm:ReproPageViewModel">
+    <DockPanel>
+
+        <!-- Issue info banner -->
+        <Border DockPanel.Dock="Top"
+                Padding="14,10"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Content="View on GitHub"
+                        Command="{Binding OpenIssueCommand}"
+                        IsVisible="{Binding HasIssueUrl}"
+                        Padding="10,4"
+                        FontSize="12"
+                        VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Info.Description}"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Opacity="0.6"
+                           TextWrapping="Wrap"
+                           Margin="0,0,12,0"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Repro content -->
+        <ContentControl Content="{Binding ReproContent}"/>
+
+    </DockPanel>
+</UserControl>
